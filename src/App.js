@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from 'react-redux';
+import './App.scss';
+import Input from './Components/Input';
+import ToDo from './Components/ToDo';
 
 function App() {
+
+  const todo = useSelector(state => state.tasks);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container app-container mt-5">
+      <h1> Todo App</h1>
+      <p>New Todo</p>
+      <Input />
+      {todo.map((todo) => {
+        return (
+          <ToDo
+            key={todo.id}
+            todo={todo}
+          />
+        )
+      })}
+      <p>There is {todo.length} pending tasks</p>
     </div>
   );
 }
